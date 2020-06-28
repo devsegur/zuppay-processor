@@ -1,4 +1,4 @@
-package com.zup.domain.enumerations;
+package com.zup.processor.domain.enumerations;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

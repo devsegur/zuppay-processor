@@ -1,6 +1,6 @@
-package com.zup.domain.entity;
+package com.zup.processor.domain.entity;
 
-import com.zup.domain.enumerations.CurrencyEnum;
+import com.zup.processor.domain.enumerations.CurrencyEnum;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;

@@ -1,4 +1,4 @@
-package com.zup.domain.dto;
+package com.zup.processor.domain.dto;
 
 import java.util.Collection;
 import java.util.UUID;

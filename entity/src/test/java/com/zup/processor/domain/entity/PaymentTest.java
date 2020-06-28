@@ -1,4 +1,4 @@
-package com.zup.domain.entity;
+package com.zup.processor.domain.entity;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

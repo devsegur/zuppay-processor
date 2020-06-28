@@ -1,6 +1,6 @@
-package com.zup.domain.dto;
+package com.zup.processor.domain.dto;
 
-import com.zup.domain.enumerations.CurrencyEnumDTO;
+import com.zup.processor.domain.enumerations.CurrencyEnumDTO;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;

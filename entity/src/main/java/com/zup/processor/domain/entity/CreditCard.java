@@ -1,6 +1,6 @@
-package com.zup.domain.entity;
+package com.zup.processor.domain.entity;
 
-import java.time.LocalDate;
+import java.util.Collection;
 import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -19,28 +20,38 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
 
 @EqualsAndHashCode(callSuper = true)
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
 @Data
-public class Transaction extends BaseEntity {
+@SuperBuilder
+@Entity
+public class CreditCard extends BaseEntity {
 
   @Id
   @NotNull
   @GeneratedValue(generator = "uuid2", strategy = GenerationType.IDENTITY)
   @GenericGenerator(name = "uuid2", strategy = "uuid2")
-  private UUID transactionId;
-
-  @NotNull private LocalDate chargeDate;
+  private UUID creditCardId;
 
   @Column(length = 100)
   @NotNull
-  private String paymentStatus;
+  private String ownerName;
 
-  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
-  private Payment payment;
+  @Column(length = 100)
+  @NotNull
+  private String cardNumber;
 
-  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
-  private CreditCard creditCard;
+  @Column(length = 100)
+  @NotNull
+  private String expirationDate;
+
+  @Column(length = 100)
+  @NotNull
+  private String securityCode;
+
+  @OneToMany(mappedBy = "creditCard", fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+  private Collection<Payment> payment;
+
+  @OneToOne(mappedBy = "creditCard", fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+  private Transaction transaction;
 }

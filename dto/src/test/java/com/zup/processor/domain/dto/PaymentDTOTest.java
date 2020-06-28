@@ -1,4 +1,4 @@
-package com.zup.domain.dto;
+package com.zup.processor.domain.dto;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
