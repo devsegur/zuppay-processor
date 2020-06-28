@@ -1,4 +1,11 @@
 spring:
+  rabbitmq:
+    queue:
+      name: ${QUEUE_NAME:payments}
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USER:guest}
+    password: ${RABBITMQ_PASS:guest}
   application:
     name: zuppay-processor
   jpa:
@@ -7,7 +14,7 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     generate-ddl: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
   datasource:
     platform: postgresql
     url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/zuppay}

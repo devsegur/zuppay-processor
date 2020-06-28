@@ -3,6 +3,10 @@ dependencies {
 	implementation project(":dto")
 	implementation project(":entity")
 
+	annotationProcessor "org.mapstruct:mapstruct-processor:${mapperStructVersion}"
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
+	implementation "io.springfox:springfox-swagger2:${swaggerVersion}"
+	implementation "io.springfox:springfox-swagger-ui:${swaggerVersion}"
 	implementation "org.mapstruct:mapstruct:${mapperStructVersion}"
 	implementation "com.google.code.gson:gson:${gsonVersion}"
 	implementation "org.springframework.boot:spring-boot-starter-actuator"
@@ -20,7 +24,6 @@ dependencies {
 		exclude group: "org.junit.vintage", module: "junit-vintage-engine"
 	}
 	testImplementation "org.testinfected.hamcrest-matchers:core-matchers:${coreMatchersVersion}"
-	annotationProcessor "org.mapstruct:mapstruct-processor:${mapperStructVersion}"
-	implementation "io.springfox:springfox-swagger2:${swaggerVersion}"
-	implementation "io.springfox:springfox-swagger-ui:${swaggerVersion}"
+	testImplementation "org.awaitility:awaitility:${awaitilityVersion}"
+	implementation 'org.springframework.amqp:spring-rabbit:2.2.7.RELEASE'
 }

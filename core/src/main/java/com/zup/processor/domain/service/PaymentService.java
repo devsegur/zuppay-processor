@@ -8,7 +8,9 @@ import com.zup.processor.domain.entity.Payment;
 import com.zup.processor.domain.exception.message.AlreadySavedException;
 import com.zup.processor.domain.exception.message.NotFoundedException;
 import com.zup.processor.domain.mapper.PaymentMapper;
+import com.zup.processor.infrastructure.messages.producer.PaymentMessageProducer;
 import com.zup.processor.infrastructure.repository.PaymentRepository;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -17,6 +19,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
+import lombok.extern.java.Log;
 import org.apache.commons.lang.SerializationUtils;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -24,10 +27,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
+@Log
 public class PaymentService implements CrudService<PaymentDTO> {
 
-  private final PaymentRepository repository;
   private final PaymentMapper mapper;
+  private final PaymentRepository repository;
+  private final PaymentMessageProducer producer;
 
   @Override
   public List<PaymentDTO> listAll() {
@@ -71,6 +76,20 @@ public class PaymentService implements CrudService<PaymentDTO> {
         .map(repository::save)
         .map(mapper::map)
         .orElseThrow(NotFoundedException::new);
+  }
+
+  public void duePayment(PaymentDTO paymentDTO) {
+    log.info(String.format("Message of Payment %s", paymentDTO));
+  }
+
+  public void existsPaymentsMessageSender() {
+    Payment payment = Payment.builder().dueDate(LocalDate.now()).build();
+    Example<Payment> paymentExample = Example.of(payment);
+    repository
+        .findAll(paymentExample)
+        .parallelStream()
+        .map(mapper::map)
+        .forEachOrdered(producer::sentMessage);
   }
 
   private Predicate<PaymentDTO> ifExistsOnDatabase() {
