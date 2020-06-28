@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.experimental.SuperBuilder;
 
 @EqualsAndHashCode(callSuper = true)
@@ -31,7 +32,7 @@ public class PaymentDTO extends BaseDTO {
 
   private CurrencyEnumDTO currency;
 
-  private UUID creditCard;
+  @NonNull private UUID creditCard;
 
   private UUID transaction;
 }
