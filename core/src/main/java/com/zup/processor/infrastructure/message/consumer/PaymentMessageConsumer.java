@@ -1,8 +1,10 @@
-package com.zup.processor.infrastructure.messages.consumer;
+package com.zup.processor.infrastructure.message.consumer;
 
 import com.google.gson.Gson;
 import com.zup.processor.domain.dto.PaymentDTO;
+import com.zup.processor.domain.exception.message.AlreadySavedException;
 import com.zup.processor.domain.service.PaymentService;
+import java.io.IOException;
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -19,7 +21,7 @@ public class PaymentMessageConsumer {
   private final Gson gson;
 
   @RabbitHandler
-  public void receive(String paymentMessage) {
+  public void receive(String paymentMessage) throws IOException, AlreadySavedException {
     service.duePayment(gson.fromJson(paymentMessage, PaymentDTO.class));
   }
 }

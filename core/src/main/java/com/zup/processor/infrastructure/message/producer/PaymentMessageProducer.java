@@ -1,4 +1,4 @@
-package com.zup.processor.infrastructure.messages.producer;
+package com.zup.processor.infrastructure.message.producer;
 
 import static java.util.Optional.ofNullable;
 
