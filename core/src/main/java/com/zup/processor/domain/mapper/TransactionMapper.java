@@ -4,6 +4,7 @@ import com.zup.processor.domain.dto.TransactionDTO;
 import com.zup.processor.domain.entity.CreditCard;
 import com.zup.processor.domain.entity.Payment;
 import com.zup.processor.domain.entity.Transaction;
+import java.util.Optional;
 import java.util.UUID;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -46,6 +47,6 @@ public abstract class TransactionMapper {
   }
 
   protected UUID getPaymentUuid(Payment payment) {
-    return payment.getPaymentId();
+    return Optional.ofNullable(payment).map(Payment::getPaymentId).orElse(null);
   }
 }
