@@ -1,0 +1,5 @@
+rootProject.name = 'zuppay-processor'
+
+include 'core'
+include 'dto'
+include 'entity'

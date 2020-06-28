@@ -1,0 +1,107 @@
+buildscript {
+	repositories {
+		mavenLocal()
+		mavenCentral()
+		jcenter()
+	}
+}
+
+plugins {
+	id "io.spring.dependency-management" version "${dependencyManagementVersion}"
+	id "org.springframework.cloud.contract" version "${springCloudContractVersion}" apply false
+	id "org.springframework.boot" version "${springBootVersion}" apply false
+	id "java"
+	id "base"
+	id "idea"
+	id "com.diffplug.gradle.spotless" version "${spotlessVersion}"
+
+}
+
+allprojects {
+	group = "com.zup"
+	version = "1.0.0"
+
+	apply plugin: "io.spring.dependency-management"
+	apply plugin: "com.diffplug.gradle.spotless"
+
+	repositories {
+		mavenLocal()
+		mavenCentral()
+		jcenter()
+	}
+
+	spotless {
+		java {
+			googleJavaFormat()
+		}
+		format "misc", {
+			target "**/*.gradle", "**/*.md", "**/.gitignore"
+
+			trimTrailingWhitespace()
+			indentWithTabs() // or spaces. Takes an integer argument if you don"t like 4
+			endWithNewline()
+		}
+	}
+
+	test {
+		useJUnitPlatform {
+			excludeTags("slow")
+		}
+	}
+}
+
+
+subprojects {
+	apply plugin: "java"
+	apply plugin: "idea"
+	apply plugin: "java-library"
+	apply plugin: "io.spring.dependency-management"
+
+	tasks.withType(JavaCompile) {
+		options.encoding = "UTF-8"
+	}
+
+	tasks.withType(Test) {
+		systemProperty "eureka.client.enabled", "false"
+	}
+
+	sourceCompatibility = JavaVersion.VERSION_11
+	targetCompatibility = JavaVersion.VERSION_11
+
+
+	configurations {
+		developmentOnly
+		runtimeClasspath {
+			extendsFrom developmentOnly
+		}
+		compileOnly {
+			extendsFrom annotationProcessor
+		}
+	}
+
+	dependencyManagement {
+		imports {
+			mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
+			mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+			mavenBom "org.springframework.cloud:spring-cloud-contract-dependencies:${springCloudContractVersion}"
+		}
+	}
+
+
+	dependencies {
+		compileOnly "org.projectlombok:lombok:${lombokVersion}"
+		annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+		testImplementation("org.junit.jupiter:junit-jupiter:${junitJupiterVersion}")
+	}
+
+	configurations {
+		testAgent {
+			transitive = false
+		}
+	}
+
+	test {
+		useJUnitPlatform()
+	}
+
+}
