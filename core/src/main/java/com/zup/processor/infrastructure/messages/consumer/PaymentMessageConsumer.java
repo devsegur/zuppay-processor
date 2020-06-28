@@ -6,8 +6,10 @@ import com.zup.processor.domain.service.PaymentService;
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+@Profile(value = "!test")
 @AllArgsConstructor
 @Component
 @RabbitListener(queues = "${spring.rabbitmq.queue.name}")

@@ -7,7 +7,9 @@ import com.zup.processor.infrastructure.controller.CrudController;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.util.ReflectionUtils;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 
+@EnableRabbit
 class CrudControllerTest {
 
   @Test
