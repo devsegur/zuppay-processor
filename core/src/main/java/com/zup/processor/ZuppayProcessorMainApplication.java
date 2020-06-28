@@ -19,8 +19,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableScheduling
 public class ZuppayProcessorMainApplication {
 
-
-
   public static void main(String[] args) {
     SpringApplication.run(ZuppayProcessorMainApplication.class, args);
   }
