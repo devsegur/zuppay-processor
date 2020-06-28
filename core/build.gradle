@@ -17,6 +17,9 @@ dependencies {
 	implementation "org.springframework.cloud:spring-cloud-starter-config"
 	implementation "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:${netflixEurekaClientVersion}"
 	implementation "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
+	implementation "org.springframework.amqp:spring-rabbit:${rabbitMQVersion}"
+	implementation "com.github.tomakehurst:wiremock-jre8:${wiremockVersion}"
+	implementation "com.paypal.sdk:payouts-sdk:${paypalPaymentVersion}"
 	runtimeOnly "io.micrometer:micrometer-registry-prometheus"
 	runtimeOnly "org.postgresql:postgresql:${postgresqlVersion}"
 	testRuntimeOnly "com.h2database:h2"
@@ -25,5 +28,4 @@ dependencies {
 	}
 	testImplementation "org.testinfected.hamcrest-matchers:core-matchers:${coreMatchersVersion}"
 	testImplementation "org.awaitility:awaitility:${awaitilityVersion}"
-	implementation 'org.springframework.amqp:spring-rabbit:2.2.7.RELEASE'
 }
