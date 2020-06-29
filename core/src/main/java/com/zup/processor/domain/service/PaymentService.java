@@ -58,23 +58,4 @@ public class PaymentService implements CrudService<PaymentDTO> {
     log.info(String.format("Saved Transaction %s", transactionDTO));
   }
 
-  private Function<Payment, Payment> sentDuePaymentWhenDueToday(PaymentDTO dto) {
-    return payment1 ->
-        of(payment1)
-            .map(Payment::getDueDate)
-            .filter(isDueDate())
-            .map(duePayment(dto, payment1))
-            .orElse(payment1);
-  }
-
-  private Function<LocalDate, Payment> duePayment(PaymentDTO dto, Payment payment1) {
-    return localDate -> {
-      producer.sentMessage(dto);
-      return payment1;
-    };
-  }
-
-  private Predicate<LocalDate> isDueDate() {
-    return localDate -> localDate.isEqual(LocalDate.now());
-  }
 }
