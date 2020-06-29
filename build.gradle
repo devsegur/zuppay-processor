@@ -56,6 +56,7 @@ subprojects {
 	apply plugin: "idea"
 	apply plugin: "java-library"
 	apply plugin: "io.spring.dependency-management"
+	apply plugin: "org.springframework.boot"
 
 	tasks.withType(JavaCompile) {
 		options.encoding = "UTF-8"
