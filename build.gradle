@@ -9,7 +9,7 @@ buildscript {
 plugins {
 	id "io.spring.dependency-management" version "${dependencyManagementVersion}"
 	id "org.springframework.cloud.contract" version "${springCloudContractVersion}" apply false
-	id "org.springframework.boot" version "${springBootVersion}" apply false
+	id "org.springframework.boot" version "${springBootVersion}"
 	id "java"
 	id "base"
 	id "idea"
@@ -43,6 +43,10 @@ allprojects {
 		}
 	}
 
+	bootJar {
+		mainClassName = 'com.zup.processor.ZuppayProcessorMainApplication'
+	}
+
 	test {
 		useJUnitPlatform {
 			excludeTags("slow")
@@ -56,7 +60,6 @@ subprojects {
 	apply plugin: "idea"
 	apply plugin: "java-library"
 	apply plugin: "io.spring.dependency-management"
-	apply plugin: "org.springframework.boot"
 
 	tasks.withType(JavaCompile) {
 		options.encoding = "UTF-8"
