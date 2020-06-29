@@ -1,7 +1,6 @@
-FROM adoptopenjdk/openjdk11:alpine-slim
-RUN addgroup -S spring && adduser -S spring -G spring
-USER spring:spring
-COPY build/libs/*.jar app/
-ENTRYPOINT app
-CMD java -jar *.jar
+FROM gradle:6.5.0-jdk11 as build
+COPY . app/
+RUN cd app; gradle clean build;
+ENTRYPOINT app/core
+CMD  gradle bootRun
 EXPOSE 8080
