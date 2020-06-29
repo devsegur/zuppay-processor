@@ -18,7 +18,7 @@ class PaymentControllerTest {
 
   @Test
   void mustReturnStatusOkWhenPerformGetMapping() throws Exception {
-    String path = "/payment/";
+    String path = "/due-payment/";
     mockMvc.perform(get(path)).andExpect(status().isOk()).andReturn();
   }
 }

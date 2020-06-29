@@ -1,6 +1,5 @@
 package com.zup.processor.domain.service;
 
-import static java.util.Optional.of;
 import static java.util.stream.Collectors.toList;
 
 import com.zup.processor.domain.dto.PaymentDTO;
@@ -13,8 +12,6 @@ import com.zup.processor.infrastructure.service.PaypalPaymentService;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Predicate;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.data.domain.Example;
@@ -57,5 +54,4 @@ public class PaymentService implements CrudService<PaymentDTO> {
     TransactionDTO transactionDTO = transactionService.save(payout);
     log.info(String.format("Saved Transaction %s", transactionDTO));
   }
-
 }
